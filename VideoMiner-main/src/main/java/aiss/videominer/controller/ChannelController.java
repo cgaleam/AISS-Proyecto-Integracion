@@ -37,6 +37,3 @@ public class ChannelController {
         return  _channel;
     }
 }
-
-
-// SIUUUUUUUUUUUU cr7 el mejor
