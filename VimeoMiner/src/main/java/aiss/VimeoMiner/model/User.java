@@ -1,0 +1,130 @@
+package aiss.VimeoMiner.model;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.persistence.OneToOne;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "id",
+        "name",
+        "user_link",
+        "picture_link"
+})
+public class User {
+
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("user_link")
+    private String userLink;
+    @JsonProperty("picture_link")
+    private String pictureLink;
+    @OneToOne
+    @JsonProperty("comment")
+    private Comment comment;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
+
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty("name")
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @JsonProperty("user_link")
+    public String getUserLink() {
+        return userLink;
+    }
+
+    @JsonProperty("user_link")
+    public void setUserLink(String userLink) {
+        this.userLink = userLink;
+    }
+
+    @JsonProperty("picture_link")
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    @JsonProperty("picture_link")
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
+    @JsonProperty("comment")
+    public Comment getComment() {
+        return comment;
+    }
+    @JsonProperty("comment")
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(User.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("id");
+        sb.append('=');
+        sb.append(((this.id == null)?"<null>":this.id));
+        sb.append(',');
+        sb.append("name");
+        sb.append('=');
+        sb.append(((this.name == null)?"<null>":this.name));
+        sb.append(',');
+        sb.append("userLink");
+        sb.append('=');
+        sb.append(((this.userLink == null)?"<null>":this.userLink));
+        sb.append(',');
+        sb.append("pictureLink");
+        sb.append('=');
+        sb.append(((this.pictureLink == null)?"<null>":this.pictureLink));
+        sb.append(',');
+        sb.append("comment");
+        sb.append('=');
+        sb.append(((this.comment == null)?"<null>":this.comment));
+        sb.append(',');
+        sb.append("additionalProperties");
+        sb.append('=');
+        sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
+        sb.append(',');
+        if (sb.charAt((sb.length()- 1)) == ',') {
+            sb.setCharAt((sb.length()- 1), ']');
+        } else {
+            sb.append(']');
+        }
+        return sb.toString();
+    }
+
+}
