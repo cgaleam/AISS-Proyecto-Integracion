@@ -1,15 +1,11 @@
 package aiss.VimeoMiner.model;
 
 
+import com.fasterxml.jackson.annotation.*;
+import jakarta.persistence.OneToOne;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.persistence.OneToOne;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -17,7 +13,7 @@ import jakarta.persistence.OneToOne;
         "text",
         "created_on"
 })
-public class Comment {
+public class CommentVM {
 
     @JsonProperty("uri")
     private String uri;
@@ -27,7 +23,7 @@ public class Comment {
     private String createdOn;
     @OneToOne
     @JsonProperty("user")
-    private User user;
+    private UserVM VMUser;
     //author
 
     @JsonIgnore
@@ -63,12 +59,12 @@ public class Comment {
         this.createdOn = createdOn;
     }
     @JsonProperty("user")
-    public User getUser() {
-        return user;
+    public UserVM getUser() {
+        return VMUser;
     }
     @JsonProperty("user")
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserVM VMUser) {
+        this.VMUser = VMUser;
     }
 
     @JsonAnyGetter
@@ -84,7 +80,7 @@ public class Comment {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Comment.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(CommentVM.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("uri");
         sb.append('=');
         sb.append(((this.uri == null)?"<null>":this.uri));
@@ -98,7 +94,7 @@ public class Comment {
         sb.append(((this.createdOn == null)?"<null>":this.createdOn));
         sb.append("author");
         sb.append('=');
-        sb.append(((this.user == null)?"<null>":this.user));
+        sb.append(((this.VMUser == null)?"<null>":this.VMUser));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');

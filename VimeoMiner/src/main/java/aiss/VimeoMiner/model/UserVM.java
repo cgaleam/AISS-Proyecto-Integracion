@@ -1,14 +1,10 @@
 package aiss.VimeoMiner.model;
 
+import com.fasterxml.jackson.annotation.*;
+import jakarta.persistence.OneToOne;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.persistence.OneToOne;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -17,7 +13,7 @@ import jakarta.persistence.OneToOne;
         "user_link",
         "picture_link"
 })
-public class User {
+public class UserVM {
 
     @JsonProperty("id")
     private String id;
@@ -29,7 +25,7 @@ public class User {
     private String pictureLink;
     @OneToOne
     @JsonProperty("comment")
-    private Comment comment;
+    private CommentVM VMComment;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -73,12 +69,12 @@ public class User {
         this.pictureLink = pictureLink;
     }
     @JsonProperty("comment")
-    public Comment getComment() {
-        return comment;
+    public CommentVM getComment() {
+        return VMComment;
     }
     @JsonProperty("comment")
-    public void setComment(Comment comment) {
-        this.comment = comment;
+    public void setComment(CommentVM VMComment) {
+        this.VMComment = VMComment;
     }
 
     @JsonAnyGetter
@@ -94,7 +90,7 @@ public class User {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(User.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(UserVM.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));
@@ -113,7 +109,7 @@ public class User {
         sb.append(',');
         sb.append("comment");
         sb.append('=');
-        sb.append(((this.comment == null)?"<null>":this.comment));
+        sb.append(((this.VMComment == null)?"<null>":this.VMComment));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');

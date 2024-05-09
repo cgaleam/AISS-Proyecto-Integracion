@@ -1,8 +1,7 @@
 package aiss.VimeoMiner.service;
 
 
-import aiss.VimeoMiner.model.Comment;
-import aiss.VimeoMiner.model.User;
+import aiss.VimeoMiner.model.UserVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,15 +21,15 @@ public class UserService {
 
     private static final String TOKEN = "17f1fa3527765a7c2f5c6f3c1317aef0";
 
-    public User getUser(String id) {
-        User res = null;
+    public UserVM getUser(String id) {
+        UserVM res = null;
         String uri = "https://api.vimeo.com/users/{id}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer" + TOKEN);
-        HttpEntity<User> request = new HttpEntity<>(null, headers);
+        HttpEntity<UserVM> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, request, User.class);
+        ResponseEntity<UserVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, UserVM.class);
 
         if(response.getBody() != null){
             res = response.getBody();
@@ -38,15 +37,15 @@ public class UserService {
         return res;
     }
 
-    public List<User> getAllUsers() {
-        List<User> res = new ArrayList<>();
+    public List<UserVM> getAllUsers() {
+        List<UserVM> res = new ArrayList<>();
         String uri = "https://api.vimeo.com/users";
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer" + TOKEN);
-        HttpEntity<User> request = new HttpEntity<>(null, headers);
+        HttpEntity<UserVM> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, request, User.class);
+        ResponseEntity<UserVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, UserVM.class);
 
         if (response.getBody() != null) {
             res.add(response.getBody());

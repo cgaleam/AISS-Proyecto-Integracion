@@ -17,7 +17,7 @@ import java.util.Map;
         "created_time"
 })
 
-public class Channel {
+public class ChannelVM {
 
     @JsonProperty("id")
     private String id;
@@ -31,7 +31,7 @@ public class Channel {
     private String createdTime;
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty("videos")
-    private List<Video> videos;
+    private List<VideoVM> VMVideos;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -85,12 +85,12 @@ public class Channel {
         this.createdTime = createdTime;
     }
     @JsonProperty("videos")
-    public List<Video> getVideos() {
-        return videos;
+    public List<VideoVM> getVideos() {
+        return VMVideos;
     }
     @JsonProperty("videos")
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
+    public void setVideos(List<VideoVM> VMVideos) {
+        this.VMVideos = VMVideos;
     }
 
 
@@ -114,7 +114,7 @@ public class Channel {
                 ", description='" + description + '\'' +
                 ", link='" + link + '\'' +
                 ", createdTime='" + createdTime + '\'' +
-                ", videos=" + videos +
+                ", videos=" + VMVideos +
                 '}';
     }
 }

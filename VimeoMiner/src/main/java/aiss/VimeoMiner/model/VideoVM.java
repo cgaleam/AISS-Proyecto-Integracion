@@ -1,18 +1,13 @@
 package aiss.VimeoMiner.model;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -22,7 +17,7 @@ import jakarta.persistence.OneToMany;
         "release_time"
 })
 
-public class Video {
+public class VideoVM {
 
     @JsonProperty("id")
     private String id;
@@ -34,10 +29,10 @@ public class Video {
     private String releaseTime;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty("comments")
-    private List<Comment> comments;
+    private List<CommentVM> VMComments;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty("text_track")
-    private List<TextTrack> textTrack;
+    private List<TextTrackVM> VMTextTrack;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -94,7 +89,7 @@ public class Video {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Video.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(VideoVM.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));

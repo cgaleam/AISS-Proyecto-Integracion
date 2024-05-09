@@ -1,16 +1,10 @@
 package aiss.VimeoMiner.model;
 
 
-
+import com.fasterxml.jackson.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -18,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "name",
         "language"
 })
-public class TextTrack {
+public class TextTrackVM {
 
     @JsonProperty("uri")
     private String uri;
@@ -72,7 +66,7 @@ public class TextTrack {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(TextTrack.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(TextTrackVM.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("uri");
         sb.append('=');
         sb.append(((this.uri == null)?"<null>":this.uri));
