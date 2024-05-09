@@ -38,7 +38,7 @@ public class UserService {
         return res;
     }
 
-    public List<User> getALlUsers() {
+    public List<User> getAllUsers() {
         List<User> res = new ArrayList<>();
         String uri = "https://api.vimeo.com/users";
 
