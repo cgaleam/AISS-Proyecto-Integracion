@@ -22,10 +22,10 @@ public class CommentService{
 
     public CommentVM getComment(String video, String id) {
         CommentVM res = null;
-        String uri = "https://api.vimeo.com/videos/{video}/comments/{id}";
+        String uri = "https://api.vimeo.com/videos/"+video+"/comments/"+id;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<CommentVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<CommentVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, CommentVM.class);
@@ -38,10 +38,10 @@ public class CommentService{
 
     public List<CommentVM> getAllCommentsOfVideo(String video) {
         List<CommentVM> res = new ArrayList<>();
-        String uri = "https://api.vimeo.com/videos/{video}/comments";
+        String uri = "https://api.vimeo.com/videos/"+video+"/comments";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<CommentVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<CommentVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, CommentVM.class);

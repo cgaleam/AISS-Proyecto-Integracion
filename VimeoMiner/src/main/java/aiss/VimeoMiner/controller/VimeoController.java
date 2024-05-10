@@ -60,11 +60,11 @@ public class VimeoController {
         return video;
     }
 
-    //GET https://api.vimeo.com/videos
-    @GetMapping("/videos")
-    public List<VideoVM> getAllVideos(){
-        return videoService.getAllVideos();
-    }
+//    //GET https://api.vimeo.com/videos
+//    @GetMapping("/videos")
+//    public List<VideoVM> getAllVideos(){
+//        return videoService.getAllVideos();
+//    }
 
     //GET https://api.vimeo.com/videos/{id}
     @GetMapping("/videos/{id}")
@@ -72,6 +72,7 @@ public class VimeoController {
         VideoVM video = videoService.getVideo(id);
         return video;
     }
+
 
     //GET https://api.vimeo.com/videos/{video}/comments
     @GetMapping("/videos/{video}/comments")
