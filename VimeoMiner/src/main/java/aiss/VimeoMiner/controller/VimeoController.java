@@ -2,12 +2,13 @@ package aiss.VimeoMiner.controller;
 
 import aiss.VimeoMiner.model.*;
 import aiss.VimeoMiner.service.*;
+import aiss.videominer.model.Channel;
+import aiss.videominer.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -99,12 +100,38 @@ public class VimeoController {
         return textTrack;
     }
 
-    //POST https://api.vimeo.com/videos
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping
-//    public VMVideo create(@Valid @RequestBody VMVideo VMVideo) {
-//        VMVideo video = videoService.save(new VMVideo());
-//        return video;
-//    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/channels/{id}")
+    public Channel create(String channelId) {
+        ChannelVM channelVM = channelService.getChannel(channelId);
+        Channel channel = convertChannelVMToChannel(channelVM);
+        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
+        List<Video> videos = new ArrayList<>();
+        for (VideoVM videovm : videosVimeo) {
+            Video v= convertVideoVMToVideo(videovm);
+            videos.add(v);
+        }
+        channel.setVideos(videos);
+        return channel;
+    }
+
+    public static Video convertVideoVMToVideo(VideoVM v){
+        String id=v.getId();
+        String name=v.getName();
+        String description= v.getDescription();
+        String releaseTime= v.getReleaseTime();
+        Video res= new Video(id,name,description,releaseTime);
+        return res;
+    }
+
+    public static Channel convertChannelVMToChannel(ChannelVM c){
+        String id= c.getId();
+        String name=c.getName();
+        String description=c.getDescription();
+        String createdTime= c.getCreatedTime();
+        Channel res= new Channel(id,name,description,createdTime);
+        return res;
+    }
 
 }

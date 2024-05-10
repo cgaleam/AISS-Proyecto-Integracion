@@ -31,7 +31,7 @@ public class ChannelVM {
     private String createdTime;
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty("videos")
-    private List<VideoVM> VMVideos;
+    private List<VideoVM> videos;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -86,11 +86,11 @@ public class ChannelVM {
     }
     @JsonProperty("videos")
     public List<VideoVM> getVideos() {
-        return VMVideos;
+        return videos;
     }
     @JsonProperty("videos")
-    public void setVideos(List<VideoVM> VMVideos) {
-        this.VMVideos = VMVideos;
+    public void setVideos(List<VideoVM> videos) {
+        this.videos = videos;
     }
 
 
@@ -114,7 +114,7 @@ public class ChannelVM {
                 ", description='" + description + '\'' +
                 ", link='" + link + '\'' +
                 ", createdTime='" + createdTime + '\'' +
-                ", videos=" + VMVideos +
+                ", videos=" + videos +
                 '}';
     }
 }

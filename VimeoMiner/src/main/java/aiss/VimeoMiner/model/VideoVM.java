@@ -1,9 +1,6 @@
 package aiss.VimeoMiner.model;
 
 import com.fasterxml.jackson.annotation.*;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,12 +24,13 @@ public class VideoVM {
     private String description;
     @JsonProperty("release_time")
     private String releaseTime;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty("comments")
-    private List<CommentVM> VMComments;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<CommentVM> comments;
+//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonProperty("text_track")
-    private List<TextTrackVM> VMTextTrack;
+    private List<TextTrackVM> textTracks;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -86,36 +84,12 @@ public class VideoVM {
         this.additionalProperties.put(name, value);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(VideoVM.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("id");
-        sb.append('=');
-        sb.append(((this.id == null)?"<null>":this.id));
-        sb.append(',');
-        sb.append("name");
-        sb.append('=');
-        sb.append(((this.name == null)?"<null>":this.name));
-        sb.append(',');
-        sb.append("description");
-        sb.append('=');
-        sb.append(((this.description == null)?"<null>":this.description));
-        sb.append(',');
-        sb.append("releaseTime");
-        sb.append('=');
-        sb.append(((this.releaseTime == null)?"<null>":this.releaseTime));
-        sb.append(',');
-        sb.append("additionalProperties");
-        sb.append('=');
-        sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
-        sb.append(',');
-        if (sb.charAt((sb.length()- 1)) == ',') {
-            sb.setCharAt((sb.length()- 1), ']');
-        } else {
-            sb.append(']');
-        }
-        return sb.toString();
+
+
+
+
+    public void addTextTracks (List<TextTrackVM> textTrackList){
+        this.textTracks.addAll(textTrackList);
     }
 
 }
