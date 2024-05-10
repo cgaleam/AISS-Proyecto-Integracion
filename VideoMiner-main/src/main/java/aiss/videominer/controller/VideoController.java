@@ -1,9 +1,7 @@
 package aiss.videominer.controller;
 
-import aiss.videominer.model.Caption;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
-import aiss.videominer.repository.CaptionRepository;
 import aiss.videominer.repository.ChannelRepository;
 import aiss.videominer.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +24,8 @@ public class VideoController {
     VideoRepository videoRepository;
 
     // GET http://localhost:8080/videominer/videos
-    public List<Video> getAllVideoByChannelId(@PathVariable(value = "channelId") long channelId) {
-        Optional<Channel> channel = channelRepository.findById(String.valueOf(channelId));
-        List<Video> videos = new ArrayList<>(channel.get().getVideos());
-        return videos;
+    public List<Video> findAll() {
+        return videoRepository.findAll();
     }
 
     // GET http://localhost:8080/videominer/videos/{id}
