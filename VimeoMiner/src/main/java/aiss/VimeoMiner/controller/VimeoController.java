@@ -5,8 +5,8 @@ import aiss.VimeoMiner.service.*;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class VimeoController {
 
     @Autowired
-    static ChannelService channelService;
+    ChannelService channelService;
     @Autowired
     CommentService commentService;
     @Autowired
@@ -24,9 +24,7 @@ public class VimeoController {
     @Autowired
     UserService userService;
     @Autowired
-    static VideoService videoService;
-    @Autowired
-    RestTemplate restTemplate;
+    VideoService videoService;
 
     //GET https://api.vimeo.com/channels
     @GetMapping("/channels")
@@ -103,6 +101,21 @@ public class VimeoController {
     }
 
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/channels/{id}")
+    public Channel create(String channelId) {
+        ChannelVM channelVM = channelService.getChannel(channelId);
+        Channel channel = convertChannelVMToChannel(channelVM);
+        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
+        List<Video> videos = new ArrayList<>();
+        for (VideoVM videovm : videosVimeo) {
+            Video v= convertVideoVMToVideo(videovm);
+            videos.add(v);
+        }
+        channel.setVideos(videos);
+        return channel;
+    }
+
     public static Video convertVideoVMToVideo(VideoVM v){
         String id=v.getId();
         String name=v.getName();
@@ -121,18 +134,4 @@ public class VimeoController {
         return res;
     }
 
-    //GET https://api.vimeo.com/channels/{id}
-    @PostMapping("/channels/{id}")
-    public static Channel getConvertedChannel(String channelId) {
-        ChannelVM channelVM = channelService.getChannel(channelId);
-        Channel channel = convertChannelVMToChannel(channelVM);
-        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
-        List<Video> videos = new ArrayList<>();
-        for (VideoVM videovm : videosVimeo) {
-            Video v= convertVideoVMToVideo(videovm);
-            videos.add(v);
-        }
-        channel.setVideos(videos);
-        return channel;
-    }
 }
