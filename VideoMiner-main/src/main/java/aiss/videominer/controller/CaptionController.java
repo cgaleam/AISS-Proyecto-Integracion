@@ -25,10 +25,8 @@ public class CaptionController {
     CaptionRepository captionRepository;
 
     // GET http://localhost:8080/videominer/captions
-    public List<Caption> getAllCaptionByVideoId(@PathVariable(value = "videoId") long videoId) {
-        Optional<Video> video = videoRepository.findById(String.valueOf(videoId));
-        List<Caption> captions = new ArrayList<>(video.get().getCaptions());
-        return captions;
+    public List<Caption> findAll(){
+        return  captionRepository.findAll();
     }
 
     // GET http://localhost:8080/videominer/captions/{id}
@@ -37,4 +35,12 @@ public class CaptionController {
         Optional<Caption> caption = captionRepository.findById(String.valueOf(id));
         return caption.get();
     }
+
+    // GET http://localhost:8080/videominer/videos/{id}
+    public List<Caption> getAllCaptionByVideoId(@PathVariable(value = "videoId") long videoId) {
+        Optional<Video> video = videoRepository.findById(String.valueOf(videoId));
+        List<Caption> captions = new ArrayList<>(video.get().getCaptions());
+        return captions;
+    }
+
 }

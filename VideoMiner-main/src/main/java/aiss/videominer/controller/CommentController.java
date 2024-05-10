@@ -1,5 +1,6 @@
 package aiss.videominer.controller;
 
+import aiss.videominer.model.Caption;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Comment;
 import aiss.videominer.model.Video;
@@ -25,16 +26,21 @@ public class CommentController {
     CommentRepository commentRepository;
 
     // GET http://localhost:8080/videominer/comments
-    public List<Comment> getAllCommentByVideoId(@PathVariable(value = "videoId") long videoId) {
-        Optional<Video> video = videoRepository.findById(String.valueOf(videoId));
-        List<Comment> comments = new ArrayList<>(video.get().getComments());
-        return comments;
+    public List<Comment> findAll(){
+        return  commentRepository.findAll();
     }
 
     // GET http://localhost:8080/videominer/comments/{id}
     @GetMapping("/{id}")
     public Comment findOne(@PathVariable long id) {
-        Optional<Comment> comment = commentRepository.findById(String.valueOf(id));
-        return comment.get();
+        Optional<Comment> caption = commentRepository.findById(String.valueOf(id));
+        return caption.get();
+    }
+
+    // GET http://localhost:8080/videominer/videos/{id}
+    public List<Comment> getAllCaptionByVideoId(@PathVariable(value = "videoId") long videoId) {
+        Optional<Video> video = videoRepository.findById(String.valueOf(videoId));
+        List<Comment> comments = new ArrayList<>(video.get().getComments());
+        return comments;
     }
 }
