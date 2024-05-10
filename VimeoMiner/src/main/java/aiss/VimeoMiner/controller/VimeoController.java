@@ -5,9 +5,11 @@ import aiss.VimeoMiner.service.*;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -77,7 +79,7 @@ public class VimeoController {
         List<CommentVM> comments = commentService.getAllCommentsOfVideo(video);
         return comments;
     }
-
+//
     //GET https://api.vimeo.com/videos/{video}/comments/{id}
     @GetMapping("/videos/{video}/comments/{id}")
     public CommentVM getComment (@PathVariable String video, @PathVariable String id){
@@ -109,43 +111,43 @@ public class VimeoController {
     }
 
     public static Channel convertChannelVMToChannel(ChannelVM c){
-        String id= c.getId();
         String name=c.getName();
         String description=c.getDescription();
         String createdTime= c.getCreatedTime();
-        Channel res= new Channel(id,name,description,createdTime);
+        Channel res= new Channel(name,description,createdTime);
         return res;
     }
 
-    //GET https://api.vimeo.com/channels/{id}
-    @PostMapping("/channels/{id}")
-    public static Channel getConvertedChannel(String channelId) {
-        ChannelVM channelVM = channelService.getChannel(channelId);
-        Channel channel = convertChannelVMToChannel(channelVM);
-        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
-        List<Video> videos = new ArrayList<>();
-        for (VideoVM videovm : videosVimeo) {
-            Video v= convertVideoVMToVideo(videovm);
-            videos.add(v);
-        }
-        channel.setVideos(videos);
-        return channel;
-    }
-    //POST https://¿¿¿localHost??/channels/
-    //no sabemos la ruta ¿local host videominer?
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/channels/{id}")
-    public Channel createConvertedChannel(String channelId) {
-        ChannelVM channelVM = channelService.getChannel(channelId);
-        Channel channel = convertChannelVMToChannel(channelVM);
-        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
-        List<Video> videos = new ArrayList<>();
-        for (VideoVM videovm : videosVimeo) {
-            Video v= convertVideoVMToVideo(videovm);
-            videos.add(v);
-        }
-        channel.setVideos(videos);
-        return channel;
-    }
+//    //GET https://api.vimeo.com/channels/{id}
+//    @GetMapping ("/channels/{id}")
+//    public static Channel getConvertedChannel(String channelId) {
+//        ChannelVM channelVM = channelService.getChannel(channelId);
+//        Channel channel = convertChannelVMToChannel(channelVM);
+//        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
+//        List<Video> vid = new ArrayList<>();
+//        for (VideoVM videovm : videosVimeo) {
+//            Video v= convertVideoVMToVideo(videovm);
+//            vid.add(v);
+//        }
+//        channel.setVideos(vid);
+//        return channel;
+//    }
+
+//    //POST https://¿¿¿localHost??/channels/
+//    //no sabemos la ruta ¿local host videominer?
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping("/channels/{id}")
+//    public Channel createConvertedChannel22(String channelId) {
+//        ChannelVM channelVM = channelService.getChannel(channelId);
+//        Channel channel = convertChannelVMToChannel(channelVM);
+//        List<VideoVM> videosVimeo = videoService.getAllVideosOfChannel(channelId);
+//        List<Video> videos = new ArrayList<>();
+//        for (VideoVM videovm : videosVimeo) {
+//            Video v= convertVideoVMToVideo(videovm);
+//            videos.add(v);
+//        }
+//        channel.setVideos(videos);
+//        return channel;
+//    }
 
 }
