@@ -16,7 +16,7 @@ import java.util.Map;
         "link",
         "created_time"
 })
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChannelVM {
 
     @JsonProperty("id")

@@ -22,10 +22,10 @@ public class TextTrackService {
 
     public TextTrackVM getTextTrack(String video, String id) {
         TextTrackVM res = null;
-        String uri = "https://api.vimeo.com/videos/{video}/texttracks/{id}";
+        String uri = "https://api.vimeo.com/videos/"+video+"/texttracks/"+id;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<TextTrackVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<TextTrackVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, TextTrackVM.class);
@@ -38,10 +38,10 @@ public class TextTrackService {
 
     public List<TextTrackVM> getAllTextTracksOfVideo(String video) {
         List<TextTrackVM> res = new ArrayList<>();
-        String uri = "https://api.vimeo.com/videos/{video}/texttracks";
+        String uri = "https://api.vimeo.com/videos/"+video+"/texttracks";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<TextTrackVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<TextTrackVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, TextTrackVM.class);

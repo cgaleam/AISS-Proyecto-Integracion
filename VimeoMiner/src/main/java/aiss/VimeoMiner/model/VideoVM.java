@@ -14,6 +14,7 @@ import java.util.Map;
         "release_time"
 })
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoVM {
 
     @JsonProperty("id")

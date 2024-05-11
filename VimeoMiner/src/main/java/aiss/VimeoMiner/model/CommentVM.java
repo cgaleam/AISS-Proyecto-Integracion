@@ -13,6 +13,7 @@ import java.util.Map;
         "text",
         "created_on"
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CommentVM {
 
     @JsonProperty("uri")

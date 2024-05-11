@@ -13,6 +13,7 @@ import java.util.Map;
         "user_link",
         "picture_link"
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserVM {
 
     @JsonProperty("id")
