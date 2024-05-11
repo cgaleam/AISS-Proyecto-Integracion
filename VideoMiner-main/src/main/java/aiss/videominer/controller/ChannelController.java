@@ -35,9 +35,8 @@ public class ChannelController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Channel create(@Valid @RequestBody Channel channel){
-        Channel _channel = repository
-                .save(new Channel(channel.getName(), channel.getDescription(),
-                        channel.getCreatedTime()));
+        Channel _channel = repository.save(new Channel(channel.getId(), channel.getName(), channel.getDescription(),
+                        channel.getCreatedTime(), channel.getVideos()));
         return  _channel;
     }
 }
