@@ -23,6 +23,7 @@ public class Channel {
         videos = new ArrayList<>();
     }
 
+
     @JsonProperty("videos")
     public List<VideoSnippet> getVideos(){ return videos; }
 

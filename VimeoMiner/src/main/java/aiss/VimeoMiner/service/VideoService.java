@@ -22,10 +22,10 @@ public class VideoService {
 
     public VideoVM getVideo(String id) {
         VideoVM res = null;
-        String uri = "https://api.vimeo.com/videos/{id}";
+        String uri = "https://api.vimeo.com/videos/" + id;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<VideoVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<VideoVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoVM.class);
@@ -36,28 +36,28 @@ public class VideoService {
         return res;
     }
 
-    public List<VideoVM> getAllVideos() {
-        List<VideoVM> res = new ArrayList<>();
-        String uri = "https://api.vimeo.com/videos";
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
-        HttpEntity<VideoVM> request = new HttpEntity<>(null, headers);
-
-        ResponseEntity<VideoVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoVM.class);
-
-        if (response.getBody() != null) {
-            res.add(response.getBody());
-        }
-        return res;
-    }
+//    public List<VideoVM> getAllVideos() {
+//        List<VideoVM> res = new ArrayList<>();
+//        String uri = "https://api.vimeo.com/videos";
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Authorization", "Bearer " + TOKEN);
+//        HttpEntity<VideoVM> request = new HttpEntity<>(null, headers);
+//
+//        ResponseEntity<VideoVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoVM.class);
+//
+//        if (response.getBody() != null) {
+//            res.add(response.getBody());
+//        }
+//        return res;
+//    }
 
     public List<VideoVM> getAllVideosOfChannel(String channel) {
         List<VideoVM> res = new ArrayList<>();
-        String uri = "https://api.vimeo.com/channels/{channel}/videos";
+        String uri = "https://api.vimeo.com/channels/" + channel + "/videos";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<VideoVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<VideoVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoVM.class);

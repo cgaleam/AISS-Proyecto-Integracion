@@ -12,6 +12,7 @@ import java.util.Map;
         "name",
         "language"
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TextTrackVM {
 
     @JsonProperty("uri")
