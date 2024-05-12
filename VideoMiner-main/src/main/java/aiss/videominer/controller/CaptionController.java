@@ -32,6 +32,7 @@ public class CaptionController {
     CaptionRepository captionRepository;
 
     // GET http://localhost:8080/videominer/captions
+    @GetMapping
     public List<Caption> findAll() { return captionRepository.findAll(); }
 
     // GET http://localhost:8080/videominer/videos/{videoId}/captions

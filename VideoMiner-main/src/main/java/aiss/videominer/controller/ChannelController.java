@@ -22,7 +22,7 @@ public class ChannelController {
     @GetMapping
     public List<Channel> findAll() { return repository.findAll(); }
 
-    // GET http://localhost:8080/videominer/channels/{id}
+    // GET http://localhost:8080/videominer/channels/:id
     @GetMapping("/{id}")
     public Channel findOne(@PathVariable String id) throws ChannelNotFoundException {
         Optional<Channel> channel = repository.findById(String.valueOf(id));

@@ -22,7 +22,7 @@ public class ChannelService {
 
     private static final String TOKEN = "17f1fa3527765a7c2f5c6f3c1317aef0";
 
-    public ChannelVM getChannel(String id) {
+    public ChannelVM getChannel( String id) {
         ChannelVM res = null;
         String uri = "https://api.vimeo.com/channels/"+id;
 
