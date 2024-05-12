@@ -33,7 +33,6 @@ public class ChannelService {
         HttpEntity<ChannelVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<ChannelVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, ChannelVM.class);
-
         if(response.getBody() != null){
             res = response.getBody();
             res.setVideos(videoService.getAllVideosOfChannel(id));
