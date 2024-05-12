@@ -2,6 +2,7 @@ package aiss.VimeoMiner.model;
 
 import com.fasterxml.jackson.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,19 +33,35 @@ public class VideoVM {
     @JsonProperty("text_track")
     private List<TextTrackVM> textTracks;
 
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
+    @JsonProperty("comments")
+    public List<CommentVM> getComments() {
+        return comments;
+    }
+    @JsonProperty("comments")
+    public void setComments(List<CommentVM> comments) {
+        this.comments = comments;
+    }
+    @JsonProperty("captions")
+    public List<TextTrackVM> getCaptions() {
+        return textTracks;
+    }
+    @JsonProperty("texttracks")
+    public void setCaptions(List<TextTrackVM> captions) {
+        this.textTracks = captions;
+    }
 
-    @JsonProperty("id")
+
+    public VideoVM(){
+        this.textTracks = new ArrayList<>();
+        this.comments = new ArrayList<>();
+    }@JsonProperty("id")
     public String getId() {
         return id;
     }
-
-    @JsonProperty("id")
+    @JsonProperty("uri")
     public void setId(String id) {
-        this.id = id;
+        this.id = id.split("/")[2];
     }
-
     @JsonProperty("name")
     public String getName() {
         return name;
@@ -53,6 +70,18 @@ public class VideoVM {
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", releaseTime='" + releaseTime + '\'' +
+                ", captions=" + textTracks + '\'' +
+                ", comments=" + comments + '\'' +
+                '}';
     }
 
     @JsonProperty("description")
@@ -65,7 +94,7 @@ public class VideoVM {
         this.description = description;
     }
 
-    @JsonProperty("release_time")
+    @JsonProperty("releaseTime")
     public String getReleaseTime() {
         return releaseTime;
     }
@@ -73,24 +102,6 @@ public class VideoVM {
     @JsonProperty("release_time")
     public void setReleaseTime(String releaseTime) {
         this.releaseTime = releaseTime;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-
-
-
-
-    public void addTextTracks (List<TextTrackVM> textTrackList){
-        this.textTracks.addAll(textTrackList);
     }
 
 }

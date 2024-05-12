@@ -5,17 +5,14 @@ import aiss.VimeoMiner.service.*;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/vimeominer")
+@RequestMapping("/vimeominer/channel")
 public class VimeoController {
 
     @Autowired
@@ -34,7 +31,7 @@ public class VimeoController {
     final String videoMinerUri = "http://localhost:8080/videominer/videos";
 
     //GET https://api.vimeo.com/channels
-    @GetMapping("/channels")
+    @GetMapping
     public List<ChannelVM> getAllChannels(){
         return channelService.getAllChannels();
     }
@@ -65,11 +62,15 @@ public class VimeoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{id}")
-    public Channel sendChannel(@PathVariable String id){
+    public ChannelVM sendChannel(@PathVariable String id,
+                               @RequestParam(required = false, defaultValue = "10") Integer maxVideos,
+                               @RequestParam(required = false, defaultValue = "10") Integer maxComments){
         ChannelVM canal = channelService.getChannel(id);
-        Channel canalParseado = convertChannelVMToChannel(canal);
-        HttpEntity<Channel> request = new HttpEntity<>(canalParseado);
-        ResponseEntity<Channel> response = restTemplate.exchange(videoMinerUri, HttpMethod.POST,request, Channel.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<ChannelVM> request = new HttpEntity<>(canal, headers);
+        ResponseEntity<ChannelVM> response = restTemplate.exchange(videoMinerUri,
+                HttpMethod.POST,request,ChannelVM.class);
         return response.getBody();
     }
 

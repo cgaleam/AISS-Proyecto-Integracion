@@ -1,6 +1,7 @@
 package aiss.VimeoMiner.service;
 
 import aiss.VimeoMiner.model.ChannelVM;
+import aiss.VimeoMiner.model.VideoVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpEntity;
@@ -56,6 +57,10 @@ public class ChannelService {
         return res;
     }
 
+    public void channelParser(ChannelVM channel) {
+        List<VideoVM> videos = channel.getVideos();
+        videos.addAll(videoService.getAllVideosOfChannel(channel.getId()));
+    }
 
 
 
