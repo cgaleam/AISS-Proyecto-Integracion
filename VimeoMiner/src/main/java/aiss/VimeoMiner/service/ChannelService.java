@@ -19,6 +19,8 @@ public class ChannelService {
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    VideoService videoService;
 
     private static final String TOKEN = "17f1fa3527765a7c2f5c6f3c1317aef0";
 
@@ -31,9 +33,9 @@ public class ChannelService {
         HttpEntity<ChannelVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<ChannelVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, ChannelVM.class);
-
         if(response.getBody() != null){
             res = response.getBody();
+            res.setVideos(videoService.getAllVideosOfChannel(id));
         }
         return res;
     }
