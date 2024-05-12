@@ -2,6 +2,7 @@ package aiss.VimeoMiner.controller;
 
 import aiss.VimeoMiner.model.*;
 import aiss.VimeoMiner.service.*;
+import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
