@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -52,6 +53,19 @@ public class VimeoController {
         String description= v.getDescription();
         String releaseTime= v.getReleaseTime();
         Video res= new Video(id,name,description,releaseTime);
+        return res;
+    }
+
+    public static List<Video> convertVideos(List<VideoVM> videos){
+        List<Video> res = new ArrayList<>();
+        for (VideoVM v : videos){
+            String id=v.getId();
+            String name=v.getName();
+            String description= v.getDescription();
+            String releaseTime= v.getReleaseTime();
+            Video nuevo= new Video(id,name,description,releaseTime);
+            res.add(nuevo);
+        }
         return res;
     }
 

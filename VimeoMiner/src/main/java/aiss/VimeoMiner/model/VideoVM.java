@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonPropertyOrder({
         "id",
         "name",
@@ -80,17 +80,13 @@ public class VideoVM {
         return this.additionalProperties;
     }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-
-
-
-
-    public void addTextTracks (List<TextTrackVM> textTrackList){
-        this.textTracks.addAll(textTrackList);
-    }
+//    @JsonAnySetter
+//    public void setAdditionalProperty(String name, Object value) {
+//        this.additionalProperties.put(name, value);
+//    }
+//
+//    public void addTextTracks (List<TextTrackVM> textTrackList){
+//        this.textTracks.addAll(textTrackList);
+//    }
 
 }
