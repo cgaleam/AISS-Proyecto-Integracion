@@ -18,7 +18,8 @@ import java.util.List;
 public class VideoService {
     @Autowired
     RestTemplate restTemplate;
-    private final static String token = "AIzaSyDXPg4TzNK6g0cl3c3MWC5_k5Sq1JynN94";
+
+    private final static String token = "AIzaSyAAhkL6-oCdtJQMlyIPeo_cM7GVpMcrD38";
     public VideoSnippet findVideo(String videoId){
         String uri= "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=" +videoId +"&key=" + token;
 
@@ -32,12 +33,12 @@ public class VideoService {
         return response.getBody().getItems().get(0);
     }
 
-    public List<VideoSnippet> findVideos(String id, Integer maxVideo){
+    public List<VideoSnippet> getVideos(String id){
         HttpHeaders headers= new HttpHeaders();
         headers.set("X-goog-api-key", token);
         String playlistId=getPlaylistId(id);
         HttpEntity<VideoSnippetSearch> request = new HttpEntity<>(null,headers);
-        String uri = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&maxResults="+ maxVideo+"&key="+token;
+        String uri = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&key="+token;
         ResponseEntity<VideoSnippetSearch>response2 = restTemplate.exchange(uri, HttpMethod.GET, request, VideoSnippetSearch.class);
 
         assert response2.getBody() != null;

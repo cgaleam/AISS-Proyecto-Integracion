@@ -21,11 +21,11 @@ public class CommentService {
     @Autowired
     RestTemplate restTemplate;
 
-    private static final String token = "AIzaSyCRsJxwUMQ3wg61XvBpfCn5IQlC_cXSQXg";
+    private static final String token = "AIzaSyAAhkL6-oCdtJQMlyIPeo_cM7GVpMcrD38";
 
-    public List<Comment> findComments(String videoId, Integer maxComments){
+    public List<Comment> getComments(String videoId){
         try{
-            String uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&maxResults="+maxComments+"&key=" + token;
+            String uri = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=" + videoId+"&key=" + token;
             HttpHeaders headers= new HttpHeaders();
             headers.set("X-goog-api-key", token);
 

@@ -40,24 +40,20 @@ public class YoutubeController {
     RestTemplate restTemplate;
 
     @GetMapping("/{id}")
-    public ChannelVideo findChannel(@PathVariable String id,
-                                    @RequestParam(required = false, defaultValue = "10") Integer sizeVideo,
-                                    @RequestParam(required = false, defaultValue = "10") Integer sizeComment
-    ) {
-        Channel channelYoutube = channelService.findChannel(id);
+    public ChannelVideo findChannel(@PathVariable String id) {
+        Channel channelYoutube = channelService.getChannel(id);
         ChannelVideo channel = ChannelTransform.channelTransform(channelYoutube);
 
-        Integer maxVideo = sizeVideo == null ? 10 : sizeVideo;
-        Integer maxComment = sizeComment == null ? 10 : sizeComment;
 
-        List<VideoSnippet> videosYoutube = videoService.findVideos(id,maxVideo);
+
+        List<VideoSnippet> videosYoutube = videoService.getVideos(id);
         List<VideoVideo> videos = new LinkedList<>();
 
         for(VideoSnippet videoYoutube:videosYoutube){
             VideoVideo video= VideoTransform.videoTransform(videoYoutube);
-            List<CommentVideo> comentarios = commentService.findComments(videoYoutube.getSnippet().getResourceId().getVideoId(), maxComment ).stream().map(CommentTransform::commentTransform).toList();
+            List<CommentVideo> comentarios = commentService.getComments(videoYoutube.getSnippet().getResourceId().getVideoId() ).stream().map(CommentTransform::commentTransform).toList();
             video.setComments(comentarios);
-            List<CaptionVideo> captions= captionService.findCaptions(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(CaptionTransform::captionTransform).toList();
+            List<CaptionVideo> captions= captionService.getCaptions(videoYoutube.getSnippet().getResourceId().getVideoId()).stream().map(CaptionTransform::captionTransform).toList();
             video.setCaptions(captions);
             videos.add(video);
         }
@@ -66,13 +62,8 @@ public class YoutubeController {
     }
 
     @PostMapping("/{id}")
-    public ChannelVideo postChannel(@PathVariable String id,
-                                    @RequestParam(required = false, defaultValue = "10") Integer sizeVideo,
-                                    @RequestParam(required = false, defaultValue = "10") Integer sizeComment
-    ){
-        Integer maxVideo = sizeVideo == null ? 10 : sizeVideo;
-        Integer maxComment = sizeComment == null ? 10 : sizeComment;
-        ChannelVideo channel = findChannel(id, maxVideo, maxComment);
+    public ChannelVideo postChannel(@PathVariable String id){
+        ChannelVideo channel = findChannel(id);
 
         String uri = "http://localhost:8080/videominer/channels";
 
