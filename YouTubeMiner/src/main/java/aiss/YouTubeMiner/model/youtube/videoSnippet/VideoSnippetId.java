@@ -1,3 +1,4 @@
+
 package aiss.YouTubeMiner.model.youtube.videoSnippet;
 
 import com.fasterxml.jackson.annotation.*;
@@ -8,10 +9,6 @@ public class VideoSnippetId {
     @JsonProperty("videoId")
     private String videoId;
 
-    public VideoSnippetId(String videoId) {
-        this.videoId = videoId;
-    }
-
     @JsonProperty("videoId")
     public String getVideoId() {
         return videoId;
@@ -19,6 +16,10 @@ public class VideoSnippetId {
 
     @JsonProperty("videoId")
     public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
+    public VideoSnippetId(String videoId) {
         this.videoId = videoId;
     }
 

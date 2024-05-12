@@ -1,3 +1,4 @@
+
 package aiss.YouTubeMiner.model.youtube.videoSnippet;
 
 import com.fasterxml.jackson.annotation.*;
@@ -5,23 +6,22 @@ import com.fasterxml.jackson.annotation.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoSnippetDetails {
 
+
     @JsonProperty("publishedAt")
     private String publishedAt;
     @JsonProperty("title")
     private String title;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("resourceId")
+    private ResourceId resourceId;
 
     public ResourceId getResourceId() {
         return resourceId;
     }
-
     public void setResourceId(ResourceId resourceId) {
         this.resourceId = resourceId;
     }
-
-    @JsonProperty("resourceId")
-    private ResourceId resourceId;
 
     @JsonProperty("publishedAt")
     public String getPublishedAt() {
@@ -53,6 +53,7 @@ public class VideoSnippetDetails {
         this.description = description;
     }
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,4 +79,3 @@ public class VideoSnippetDetails {
     }
 
 }
-

@@ -1,3 +1,4 @@
+
 package aiss.YouTubeMiner.model.youtube.videoSnippet;
 
 import java.util.List;
