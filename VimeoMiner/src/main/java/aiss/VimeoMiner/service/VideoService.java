@@ -80,7 +80,7 @@ public class VideoService {
 
     public void parseVideos(List<VideoVM> videos) {
         for (VideoVM v : videos) {
-            v.getCaptions().addAll(textTrackService.getAllTextTracksOfVideo(v.getId()));
+            v.getTextTracks().addAll(textTrackService.getAllTextTracksOfVideo(v.getId()));
             v.getComments().addAll(commentService.getAllCommentsOfVideo(v.getId()));
         }
     }
