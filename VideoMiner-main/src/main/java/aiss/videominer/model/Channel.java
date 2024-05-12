@@ -45,7 +45,6 @@ public class Channel {
         this.name = name;
         this.description = description;
         this.createdTime = createdTime;
-        this.videos = new ArrayList<>();
     }
 
     public String getId() {

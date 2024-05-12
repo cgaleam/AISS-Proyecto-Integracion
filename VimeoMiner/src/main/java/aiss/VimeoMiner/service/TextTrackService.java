@@ -1,6 +1,7 @@
 package aiss.VimeoMiner.service;
 
 import aiss.VimeoMiner.model.TextTrackVM;
+import aiss.VimeoMiner.model.TextTrackVMList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +23,10 @@ public class TextTrackService {
 
     public TextTrackVM getTextTrack(String video, String id) {
         TextTrackVM res = null;
-        String uri = "https://api.vimeo.com/videos/{video}/texttracks/{id}";
+        String uri = "https://api.vimeo.com/videos/"+video+"/texttracks/"+id;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<TextTrackVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<TextTrackVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, TextTrackVM.class);
@@ -38,17 +39,16 @@ public class TextTrackService {
 
     public List<TextTrackVM> getAllTextTracksOfVideo(String video) {
         List<TextTrackVM> res = new ArrayList<>();
-        String uri = "https://api.vimeo.com/videos/{video}/texttracks";
+        String uri = "https://api.vimeo.com/videos/"+video+"/texttracks";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
-        HttpEntity<TextTrackVM> request = new HttpEntity<>(null, headers);
+        headers.set("Authorization", "bearer " + TOKEN);
+        HttpEntity<TextTrackVMList> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<TextTrackVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, TextTrackVM.class);
+        ResponseEntity<TextTrackVMList> response = restTemplate.exchange(uri, HttpMethod.GET, request, TextTrackVMList.class);
 
-        if(response.getBody() != null){
-            res.add(response.getBody());
-        }
+        assert response.getBody() != null;
+        res = response.getBody().getData();
         return res;
     }
 }

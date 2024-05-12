@@ -8,42 +8,33 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
         "name",
         "description",
-        "link",
-        "created_time"
+        "created_time",
+        "videos",
+
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class ChannelVM {
 
-    @JsonProperty("id")
-    private String id;
+    public String id;
+
     @JsonProperty("name")
     private String name;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("link")
-    private String link;
+    @JsonProperty("uri")
+    private String uri;
     @JsonProperty("created_time")
     private String createdTime;
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonProperty("description")
+    private String description;
     @JsonProperty("videos")
     private List<VideoVM> videos;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("id")
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
-    }
 
     @JsonProperty("name")
     public String getName() {
@@ -65,16 +56,6 @@ public class ChannelVM {
         this.description = description;
     }
 
-    @JsonProperty("link")
-    public String getLink() {
-        return link;
-    }
-
-    @JsonProperty("link")
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     @JsonProperty("created_time")
     public String getCreatedTime() {
         return createdTime;
@@ -94,16 +75,22 @@ public class ChannelVM {
     }
 
 
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    public String getId() {
+        List<String> aux = List.of(this.uri.split("/"));
+        return aux.get(aux.size()-1);
     }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
+    public void setId(String id){ this.id =id;}
+
+//    @JsonAnyGetter
+//    public Map<String, Object> getAdditionalProperties() {
+//        return this.additionalProperties;
+//    }
+//
+//    @JsonAnySetter
+//    public void setAdditionalProperty(String name, Object value) {
+//        this.additionalProperties.put(name, value);
+//    }
 
 
     @Override
@@ -112,7 +99,6 @@ public class ChannelVM {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", link='" + link + '\'' +
                 ", createdTime='" + createdTime + '\'' +
                 ", videos=" + videos +
                 '}';

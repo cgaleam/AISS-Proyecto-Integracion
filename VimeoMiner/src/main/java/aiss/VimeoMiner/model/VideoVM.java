@@ -6,20 +6,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonPropertyOrder({
         "id",
         "name",
         "description",
-        "release_time"
+        "release_time",
+        "comments",
+        "text_tracks"
 })
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoVM {
 
-    @JsonProperty("id")
-    private String id;
+
+    public String id;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("uri")
+    private String uri;
     @JsonProperty("description")
     private String description;
     @JsonProperty("release_time")
@@ -34,15 +39,13 @@ public class VideoVM {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("id")
+
     public String getId() {
-        return id;
+        List<String> aux = List.of(this.uri.split("/"));
+        return aux.get(aux.size()-1);
     }
 
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id){ this.id =id;}
 
     @JsonProperty("name")
     public String getName() {
@@ -74,22 +77,34 @@ public class VideoVM {
         this.releaseTime = releaseTime;
     }
 
+    public List<CommentVM> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentVM> comments) {
+        this.comments = comments;
+    }
+
+    public List<TextTrackVM> getTextTracks() {
+        return textTracks;
+    }
+
+    public void setTextTracks(List<TextTrackVM> textTracks) {
+        this.textTracks = textTracks;
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-
-
-
-
-    public void addTextTracks (List<TextTrackVM> textTrackList){
-        this.textTracks.addAll(textTrackList);
-    }
+//    @JsonAnySetter
+//    public void setAdditionalProperty(String name, Object value) {
+//        this.additionalProperties.put(name, value);
+//    }
+//
+//    public void addTextTracks (List<TextTrackVM> textTrackList){
+//        this.textTracks.addAll(textTrackList);
+//    }
 
 }

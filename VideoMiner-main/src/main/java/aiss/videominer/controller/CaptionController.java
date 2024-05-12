@@ -5,6 +5,7 @@ import aiss.videominer.exceptions.ChannelNotFoundException;
 import aiss.videominer.exceptions.VideoNotFoundException;
 import aiss.videominer.model.Caption;
 import aiss.videominer.model.Channel;
+import aiss.videominer.model.Comment;
 import aiss.videominer.model.Video;
 import aiss.videominer.repository.CaptionRepository;
 import aiss.videominer.repository.ChannelRepository;
@@ -31,6 +32,10 @@ public class CaptionController {
     CaptionRepository captionRepository;
 
     // GET http://localhost:8080/videominer/captions
+    @GetMapping
+    public List<Caption> findAll() { return captionRepository.findAll(); }
+
+    // GET http://localhost:8080/videominer/videos/{videoId}/captions
     public List<Caption> getAllCaptionByVideoId(@PathVariable String videoId, @PathVariable String channelId)
             throws VideoNotFoundException, ChannelNotFoundException {
         List<Caption> res= new ArrayList<>();

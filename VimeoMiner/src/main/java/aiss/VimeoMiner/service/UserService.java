@@ -3,6 +3,7 @@ package aiss.VimeoMiner.service;
 
 import aiss.VimeoMiner.model.UserVM;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+@ComponentScan
 @Service
 public class UserService {
 
@@ -23,10 +25,10 @@ public class UserService {
 
     public UserVM getUser(String id) {
         UserVM res = null;
-        String uri = "https://api.vimeo.com/users/{id}";
+        String uri = "https://api.vimeo.com/users/" + id;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<UserVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<UserVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, UserVM.class);
@@ -42,7 +44,7 @@ public class UserService {
         String uri = "https://api.vimeo.com/users";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer" + TOKEN);
+        headers.set("Authorization", "bearer " + TOKEN);
         HttpEntity<UserVM> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<UserVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, UserVM.class);
