@@ -18,6 +18,10 @@ public class VideoService {
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    CommentService commentService;
+    @Autowired
+    TextTrackService textTrackService;
 
     private static final String TOKEN = "17f1fa3527765a7c2f5c6f3c1317aef0";
 
@@ -33,6 +37,8 @@ public class VideoService {
 
         if(response.getBody() != null){
             res = response.getBody();
+            res.setComments(commentService.getAllCommentsOfVideo(id));
+            res.setTextTracks(textTrackService.getAllTextTracksOfVideo(id));
         }
         return res;
     }
@@ -65,6 +71,10 @@ public class VideoService {
 
         assert response.getBody() != null;
         res = response.getBody().getData();
+        for (VideoVM v: res){
+            v.setTextTracks(textTrackService.getAllTextTracksOfVideo(v.getId()));
+            v.setComments(commentService.getAllCommentsOfVideo(v.getId()));
+        }
         return res;
     }
 }

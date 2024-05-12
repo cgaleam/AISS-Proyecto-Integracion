@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.OneToOne;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonPropertyOrder({
-        "uri",
+        "id",
         "text",
-        "created_on"
+        "created_on",
+        "user"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CommentVM {
@@ -24,8 +26,17 @@ public class CommentVM {
     private String createdOn;
     @OneToOne
     @JsonProperty("user")
-    private UserVM VMUser;
+    private UserVM author;
     //author
+
+    public String id;
+    public String getId() {
+        List<String> aux = List.of(this.uri.split("/"));
+        return aux.get(aux.size()-1);
+    }
+
+    public void setId(String id){ this.id =id;}
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
@@ -61,22 +72,14 @@ public class CommentVM {
     }
     @JsonProperty("user")
     public UserVM getUser() {
-        return VMUser;
+        return author;
     }
     @JsonProperty("user")
-    public void setUser(UserVM VMUser) {
-        this.VMUser = VMUser;
+    public void setUser(UserVM author) {
+        this.author = author;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
     @Override
     public String toString() {
@@ -95,7 +98,7 @@ public class CommentVM {
         sb.append(((this.createdOn == null)?"<null>":this.createdOn));
         sb.append("author");
         sb.append('=');
-        sb.append(((this.VMUser == null)?"<null>":this.VMUser));
+        sb.append(((this.author == null)?"<null>":this.author));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');
