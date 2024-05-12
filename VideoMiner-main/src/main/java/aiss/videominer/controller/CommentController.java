@@ -1,14 +1,11 @@
 package aiss.videominer.controller;
 
-import aiss.videominer.exceptions.CaptionNotFoundException;
 import aiss.videominer.exceptions.ChannelNotFoundException;
 import aiss.videominer.exceptions.CommentNotFoundException;
 import aiss.videominer.exceptions.VideoNotFoundException;
-import aiss.videominer.model.Caption;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Comment;
 import aiss.videominer.model.Video;
-import aiss.videominer.repository.CaptionRepository;
 import aiss.videominer.repository.ChannelRepository;
 import aiss.videominer.repository.CommentRepository;
 import aiss.videominer.repository.VideoRepository;

@@ -49,6 +49,12 @@ public class Channel {
         this.videos = new ArrayList<>(videos);
     }
 
+    public Channel(String name, String description, String createdTime) {
+        this.name = name;
+        this.description = description;
+        this.createdTime = createdTime;
+    }
+
     public String getId() {
         return id;
     }
@@ -87,13 +93,6 @@ public class Channel {
 
     public void setVideos(List<Video> videos) {
         this.videos = videos;
-    }
-
-    public Channel(String id, String name, String description, String createdTime) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.createdTime = createdTime;
     }
 
     @Override

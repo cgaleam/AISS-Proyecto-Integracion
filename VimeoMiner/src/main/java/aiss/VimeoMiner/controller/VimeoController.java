@@ -5,15 +5,17 @@ import aiss.VimeoMiner.service.*;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api.vimeo.com")
+@RequestMapping("/api.vimeo.com")
 public class VimeoController {
 
     @Autowired
@@ -26,6 +28,8 @@ public class VimeoController {
     UserService userService;
     @Autowired
     static VideoService videoService;
+    @Autowired
+    RestTemplate restTemplate;
 
     //GET https://api.vimeo.com/channels
     @GetMapping("/channels")
@@ -119,6 +123,29 @@ public class VimeoController {
         return res;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/channels/{id}")
+    public Channel create(@PathVariable String id) {
+
+        ChannelVM channel = channelService.getChannel(id);
+
+        String uri = "http://localhost:8080/videominer/channels";
+        Channel createdChannel = restTemplate.postForObject(uri, channel ,Channel.class);
+        return createdChannel;
+    }
+    /*//POST http://localhost:8081/gitlabminer/projects/{id}[?sinceCommits=5&sinceIssues=30&maxPages=2]
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/projects/{id}")
+    public ProjectMiner create(@PathVariable Integer id) {
+
+        ProjectMiner proj = projectService.getProject(id);
+        Videom
+        ProjectMiner filtredProj = new ProjectMiner(proj.getId(), proj.getName(), proj.getWebUrl(), commits, issues);
+        String uri = "http://localhost:8080/gitminer/projects";
+        ProjectMiner createdProj = template.postForObject(uri, filtredProj, ProjectMiner.class);
+        return createdProj;
+*/
+    }
 //    //GET https://api.vimeo.com/channels/{id}
 //    @GetMapping ("/channels/{id}")
 //    public static Channel getConvertedChannel(String channelId) {
@@ -151,4 +178,3 @@ public class VimeoController {
 //        return channel;
 //    }
 
-}

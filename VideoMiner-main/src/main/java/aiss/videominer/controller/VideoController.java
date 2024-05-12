@@ -24,6 +24,7 @@ public class VideoController {
     VideoRepository videoRepository;
 
     // GET http://localhost:8080/videominer/videos
+    @GetMapping
     public List<Video> findAll() {
         return videoRepository.findAll();
     }

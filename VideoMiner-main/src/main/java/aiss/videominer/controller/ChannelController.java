@@ -19,6 +19,7 @@ public class ChannelController {
     ChannelRepository repository;
 
     // GET http://localhost:8080/videominer/channels
+    @GetMapping
     public List<Channel> findAll() { return repository.findAll(); }
 
     // GET http://localhost:8080/videominer/channels/{id}
@@ -35,8 +36,8 @@ public class ChannelController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Channel create(@Valid @RequestBody Channel channel){
-        Channel _channel = repository.save(new Channel(channel.getId(), channel.getName(), channel.getDescription(),
+         return repository.save(new Channel(channel.getId(), channel.getName(), channel.getDescription(),
                         channel.getCreatedTime(), channel.getVideos()));
-        return  _channel;
+
     }
 }
