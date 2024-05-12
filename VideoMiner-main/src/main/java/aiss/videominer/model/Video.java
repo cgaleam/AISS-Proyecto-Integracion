@@ -90,13 +90,6 @@ public class Video {
         this.captions = captions;
     }
 
-    public Video(String id, String name, String description, String releaseTime) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.releaseTime = releaseTime;
-    }
-
     @Override
     public String toString() {
         return "Video{" +
