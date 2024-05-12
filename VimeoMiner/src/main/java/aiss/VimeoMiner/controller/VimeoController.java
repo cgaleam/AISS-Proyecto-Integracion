@@ -67,7 +67,8 @@ public class VimeoController {
     @PostMapping("/{id}")
     public Channel sendChannel(@PathVariable String id){
         ChannelVM canal = channelService.getChannel(id);
-        HttpEntity<ChannelVM> request = new HttpEntity<>(canal);
+        Channel canalParseado = convertChannelVMToChannel(canal);
+        HttpEntity<Channel> request = new HttpEntity<>(canalParseado);
         ResponseEntity<Channel> response = restTemplate.exchange(videoMinerUri, HttpMethod.POST,request, Channel.class);
         return response.getBody();
     }
