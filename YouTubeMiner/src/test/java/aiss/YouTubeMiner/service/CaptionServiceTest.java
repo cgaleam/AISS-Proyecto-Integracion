@@ -16,10 +16,10 @@ public class CaptionServiceTest {
     @Autowired
     CaptionService captionService;
     @Test
-    void findCaptions(){
+    void getCaptions(){
         CaptionService captionService = new CaptionService();
         String videoId = "gwUfIt2s0q0";
-        List<Caption> captions = captionService.findCaptions(videoId);
+        List<Caption> captions = captionService.getCaptions(videoId);
         assertNotNull(captions, "La lista de captions no debe ser nula");
         assertFalse(captions.isEmpty(), "La lista de captions debe contener elementos");
         System.out.println(captions);

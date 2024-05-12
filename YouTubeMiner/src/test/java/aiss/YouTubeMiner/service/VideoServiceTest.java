@@ -11,7 +11,7 @@ public class VideoServiceTest {
     @Autowired
     VideoService videoService;
     @Test
-    void findVideo(){
+    void getVideo(){
         String id = "YDTANv-7k7g";
         VideoSnippet c = videoService.findVideo(id);
         System.out.println(c);

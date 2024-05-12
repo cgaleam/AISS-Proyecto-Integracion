@@ -16,9 +16,9 @@ public class CommentServiceTest {
     @Autowired
     CommentService commentService;
     @Test
-    void findComments(){
+    void getComments(){
         String videoId = "YDTANv-7k7g";
-        List<Comment> comments = commentService.findComments(videoId, null);
+        List<Comment> comments = commentService.getComments(videoId);
         assertNotNull(comments, "La lista de comentarios no debe ser nula");
         assertFalse(comments.isEmpty(), "La lista de comentarios no debe estar vacía");
     }

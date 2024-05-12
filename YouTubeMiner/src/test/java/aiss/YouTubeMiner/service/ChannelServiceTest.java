@@ -13,9 +13,9 @@ public class ChannelServiceTest {
     @Autowired
     ChannelService channelService;
     @Test
-    void findChannels(){
+    void getChannels(){
         String id = "UC_pT_Iz6XjuM-eMTlXghdfw";
-        Channel c = channelService.findChannel(id);
+        Channel c = channelService.getChannel(id);
         System.out.println(c);
     }
 }
