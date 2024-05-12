@@ -19,6 +19,7 @@ public class ChannelController {
     ChannelRepository repository;
 
     // GET http://localhost:8080/videominer/channels
+    @GetMapping
     public List<Channel> findAll() { return repository.findAll(); }
 
     // GET http://localhost:8080/videominer/channels/:id
