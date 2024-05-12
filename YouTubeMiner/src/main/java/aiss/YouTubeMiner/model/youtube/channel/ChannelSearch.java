@@ -1,4 +1,3 @@
-
 package aiss.YouTubeMiner.model.youtube.channel;
 
 import java.util.List;
@@ -9,17 +8,19 @@ import com.fasterxml.jackson.annotation.*;
 public class ChannelSearch {
 
     @JsonProperty("items")
-    private List<Channel> items;
+    private List<ChannelYouTube> items;
 
     @JsonProperty("items")
-    public List<Channel> getItems() {
+    public List<ChannelYouTube> getItems() {
         return items;
     }
 
     @JsonProperty("items")
-    public void setItems(List<Channel> items) {
+    public void setItems(List<ChannelYouTube> items) {
         this.items = items;
     }
+
+
 
 
     @Override
