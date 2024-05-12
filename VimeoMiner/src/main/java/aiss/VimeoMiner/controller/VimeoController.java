@@ -54,11 +54,12 @@ public class VimeoController {
     public static List<Comment> convertComments(List<CommentVM> comments){
         List<Comment> res = new ArrayList<>();
         for (CommentVM c : comments){
-            String id=c.getId();
-            String text=c.getText();
-            String createdOn = c.getCreatedOn();
             User author = convertUser(c.getUser());
-            Comment nuevo = new Comment(id,text,createdOn, author);
+            Comment nuevo = new Comment();
+            nuevo.setId(c.getId());
+            nuevo.setText(c.getText());
+            nuevo.setCreatedOn(c.getCreatedOn());
+            nuevo.setAuthor(author);
             res.add(nuevo);
         }
         return res;
@@ -66,20 +67,21 @@ public class VimeoController {
 
     private static User convertUser(UserVM u) {
         Long id = Long.parseLong(u.getId()) ;
-        String name = u.getName();
-        String user_link = u.getUserLink();
-        String picture_link = u.getPictureLink();
-        User nuevo = new User(id, name, user_link, picture_link);
+        User nuevo = new User();
+        nuevo.setId(id);
+        nuevo.setName(u.getName());
+        nuevo.setUser_link(u.getUserLink());
+        nuevo.setPicture_link(u.getPictureLink());
         return nuevo;
     }
 
     public static List<Caption> convertTextTracks(List<TextTrackVM> tt){
         List<Caption> res = new ArrayList<>();
         for (TextTrackVM t : tt){
-            String id=  t.getId();
-            String name = t.getName();
-            String language = t.getLanguage();
-            Caption nuevo = new Caption(id,name,language);
+            Caption nuevo = new Caption();
+            nuevo.setId(t.getId());
+            nuevo.setName(t.getName());
+            nuevo.setLanguage(t.getLanguage());
             res.add(nuevo);
         }
         return res;
@@ -87,11 +89,11 @@ public class VimeoController {
     public static List<Video> convertVideos(List<VideoVM> videos){
         List<Video> res = new ArrayList<>();
         for (VideoVM v : videos){
-            String id=v.getId();
-            String name=v.getName();
-            String description= v.getDescription();
-            String releaseTime= v.getReleaseTime();
-            Video nuevo= new Video(id,name,description,releaseTime);
+            Video nuevo= new Video();
+            nuevo.setId(v.getId());
+            nuevo.setName(v.getName());
+            nuevo.setDescription(v.getDescription());
+            nuevo.setReleaseTime(v.getReleaseTime());
             nuevo.setComments(convertComments(v.getComments()));
             nuevo.setCaptions(convertTextTracks(v.getTextTracks()));
             res.add(nuevo);
