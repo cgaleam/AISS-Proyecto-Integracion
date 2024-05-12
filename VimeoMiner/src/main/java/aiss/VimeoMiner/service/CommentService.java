@@ -1,6 +1,7 @@
 package aiss.VimeoMiner.service;
 
 import aiss.VimeoMiner.model.CommentVM;
+import aiss.VimeoMiner.model.CommentVMList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -42,13 +43,12 @@ public class CommentService{
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "bearer " + TOKEN);
-        HttpEntity<CommentVM> request = new HttpEntity<>(null, headers);
+        HttpEntity<CommentVMList> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<CommentVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, CommentVM.class);
+        ResponseEntity<CommentVMList> response = restTemplate.exchange(uri, HttpMethod.GET, request, CommentVMList.class);
 
-        if(response.getBody() != null){
-            res.add(response.getBody());
-        }
+        assert response.getBody() != null;
+        res = response.getBody().getData();
         return res;
     }
 

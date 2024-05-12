@@ -1,6 +1,7 @@
 package aiss.VimeoMiner.service;
 
 import aiss.VimeoMiner.model.VideoVM;
+import aiss.VimeoMiner.model.VideoVMList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +37,8 @@ public class VideoService {
 
         if(response.getBody() != null){
             res = response.getBody();
+            res.setComments(commentService.getAllCommentsOfVideo(id));
+            res.setTextTracks(textTrackService.getAllTextTracksOfVideo(id));
         }
         return res;
     }
@@ -62,12 +65,15 @@ public class VideoService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "bearer " + TOKEN);
-        HttpEntity<VideoVM> request = new HttpEntity<>(null, headers);
+        HttpEntity<VideoVMList> request = new HttpEntity<>(null, headers);
 
-        ResponseEntity<VideoVM> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoVM.class);
+        ResponseEntity<VideoVMList> response = restTemplate.exchange(uri, HttpMethod.GET, request, VideoVMList.class);
 
-        if(response.getBody() != null){
-            res.add(response.getBody());
+        assert response.getBody() != null;
+        res = response.getBody().getData();
+        for (VideoVM v: res){
+            v.setTextTracks(textTrackService.getAllTextTracksOfVideo(v.getId()));
+            v.setComments(commentService.getAllCommentsOfVideo(v.getId()));
         }
         return res;
     }
