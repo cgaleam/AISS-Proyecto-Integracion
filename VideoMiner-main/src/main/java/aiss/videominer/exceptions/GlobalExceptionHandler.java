@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class    GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ResponseEntity<Map<String, List<String>>> handleValidationException(MethodArgumentNotValidException ex) {
